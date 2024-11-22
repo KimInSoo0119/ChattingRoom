@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: INSoft
+Build-Jdk: 17.0.7
+Implementation-Title: chttingserver
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: chattingserver
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/chttingserver
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>대기방</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- axios CDN 추가 -->
+</head>
+<body>
+    <h2>여기는 대기방~!</h2>
+
+    <form id="createRoomForm" action="/createRoom" method="post">
+        <label>방 ID:</label>
+        <input type="text" id="roomId" name="roomId" autofocus required>
+        <button type="submit">방 생성하기</button>
+    </form>
+    
+    <div id="roomList"></div>
+
+    <script>
+        const username = `[[${username}]]`;
+
+        document.getElementById('createRoomForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+
+            axios.post('/createRoom', formData)
+                .then(response => {
+                    loadChatRooms();
+                    document.getElementById('roomId').value = '';
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        function loadChatRooms() {
+            axios.get('/getChatRooms')
+                .then(response => {
+                    const data = response.data;
+                    const roomList = document.getElementById('roomList');
+                    roomList.innerHTML = '';
+
+                    data.forEach(room => {
+                        const button = document.createElement('button');
+                        button.innerText = room.roomId; 
+                        button.onclick = function() {
+                            joinRoom(room.roomId, username); 
+                        };
+                        roomList.appendChild(button);
+                    });
+                })
+                .catch(error => console.error('Error fetching rooms:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', loadChatRooms);
+
+        function joinRoom(roomId, username) {
+			console.log('사용자이름', username);
+            const url = `/joinRoom?roomId=${encodeURIComponent(roomId)}&username=${encodeURIComponent(username)}`;
+            
+            axios.get(url)
+                .then(response => {
+                    const chatWindow = window.open("", "chatroom");
+                    chatWindow.document.open();
+                    chatWindow.document.write(response.data);  
+                    chatWindow.document.close();
+                })
+                .catch(error => {
+                    alert('방 참여 실패');
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+</html>
