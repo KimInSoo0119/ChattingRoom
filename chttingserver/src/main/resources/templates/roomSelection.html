@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>대기방</title>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- axios CDN 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> 
 </head>
 <body>
-    <h2>여기는 대기방~!</h2>
-
+    <h2>~여기는 대기방~</h2>
+	<h3>방번호는 숫자만 입력가능합니다.</h3>
     <form id="createRoomForm" action="/createRoom" method="post">
-        <label>방 ID:</label>
+        <label>방 ID(NUM):</label>
         <input type="text" id="roomId" name="roomId" autofocus required>
         <button type="submit">방 생성하기</button>
     </form>
@@ -17,7 +17,7 @@
     <div id="roomList"></div>
 
     <script>
-        const username = `[[${username}]]`;
+        const user = `[[${username}]]`;
 
         document.getElementById('createRoomForm').addEventListener('submit', function(event) {
             event.preventDefault();
@@ -42,7 +42,7 @@
                         const button = document.createElement('button');
                         button.innerText = room.roomId; 
                         button.onclick = function() {
-                            joinRoom(room.roomId, username); 
+                            joinRoom(room.roomId, user); 
                         };
                         roomList.appendChild(button);
                     });
@@ -52,16 +52,14 @@
 
         document.addEventListener('DOMContentLoaded', loadChatRooms);
 
-        function joinRoom(roomId, username) {
-			console.log('사용자이름', username);
-            const url = `/joinRoom?roomId=${encodeURIComponent(roomId)}&username=${encodeURIComponent(username)}`;
+        function joinRoom(roomId, user) {
+            const url = `/joinRoom?roomId=${encodeURIComponent(roomId)}&username=${encodeURIComponent(user)}`;
             
             axios.get(url)
                 .then(response => {
-                    const chatWindow = window.open("", "chatroom");
-                    chatWindow.document.open();
-                    chatWindow.document.write(response.data);  
-                    chatWindow.document.close();
+                    document.open();
+                    document.write(response.data);  
+                    document.close();
                 })
                 .catch(error => {
                     alert('방 참여 실패');
