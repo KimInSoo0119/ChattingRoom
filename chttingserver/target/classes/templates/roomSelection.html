@@ -10,10 +10,10 @@
 	<h3>방번호는 숫자만 입력가능합니다.</h3>
     <form id="createRoomForm" action="/createRoom" method="post">
         <label>방 ID(NUM):</label>
-        <input type="text" id="roomId" name="roomId" autofocus required>
+        <input type="number" id="roomId" name="roomId" placeholder="Enter your roomId" autofocus required>
         <button type="submit">방 생성하기</button>
     </form>
-    
+  
     <div id="roomList"></div>
 
     <script>
@@ -68,4 +68,28 @@
         }
     </script>
 </body>
+<style>
+	   html, body {
+            height: 500px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            font-size: 30px;
+        }
+        
+        input[type="number"] {
+			text-align: center;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 16px;
+		}
+		
+		button {
+			font-size: 20px;
+		}
+</style>
 </html>
