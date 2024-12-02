@@ -16,6 +16,13 @@
 + 사용자가 직접 채팅방 생성 가능
 + 생성된 채팅방에 입장 이후, 해당 방에 입장한 사용자들과 채팅 가능
 
+## :rainbow: 라이브러리
+------------
++ spring-boot-starter-web 
++ spring-boot-devtools
++ spring-boot-starter-thymeleaf
++ lombok
+
 ## :rainbow: 개발 기간
 ------------
 + 24.11.22 ~
